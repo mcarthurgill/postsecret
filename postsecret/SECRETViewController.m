@@ -16,7 +16,6 @@
 @implementation SECRETViewController
 @synthesize photoStack = _photoStack;
 @synthesize photos = _photos;
-@synthesize pageControl = _pageControl; 
 
 
 #pragma mark -
@@ -71,11 +70,23 @@
 }
 
 -(void)photoStackView:(PhotoStackView *)photoStackView didRevealPhotoAtIndex:(NSUInteger)index {
-    self.pageControl.currentPage = index; 
+//    self.pageControl.currentPage = index; 
 }
 
 -(void)photoStackView:(PhotoStackView *)photoStackView didSelectPhotoAtIndex:(NSUInteger)index {
     NSLog(@"selectd photo at index %d", index);
+}
+
+#pragma mark - 
+#pragma mark Setup and Load
+
+-(void)setup {
+    [self.view addSubview:self.photoStack];
+}
+
+-(void)viewDidLoad {
+    [super viewDidLoad];
+    [self setup];
 }
 
 @end
