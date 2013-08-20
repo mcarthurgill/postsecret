@@ -15,7 +15,8 @@
 
 @implementation SECRETViewController
 @synthesize photoStack = _photoStack;
-@synthesize photos = _photos; 
+@synthesize photos = _photos;
+@synthesize pageControl = _pageControl; 
 
 
 #pragma mark -
@@ -61,5 +62,20 @@
 #pragma mark -
 #pragma mark Delegate Protocol Methods
 
+-(void)photoStackView:(PhotoStackView *)photoStackView willStartMovingPhotoAtIndex:(NSUInteger)index {
+    //user started moving a photo
+}
+
+-(void)photoStackView:(PhotoStackView *)photoStackView willFlickAwayPhotoFromIndex:(NSUInteger)fromIndex toIndex:(NSUInteger)index {
+    //user flicked away the photo revealing the next one in the stack
+}
+
+-(void)photoStackView:(PhotoStackView *)photoStackView didRevealPhotoAtIndex:(NSUInteger)index {
+    self.pageControl.currentPage = index; 
+}
+
+-(void)photoStackView:(PhotoStackView *)photoStackView didSelectPhotoAtIndex:(NSUInteger)index {
+    NSLog(@"selectd photo at index %d", index);
+}
 
 @end

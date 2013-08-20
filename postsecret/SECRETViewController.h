@@ -12,5 +12,6 @@
 @interface SECRETViewController : UIViewController <PhotoStackViewDataSource, PhotoStackViewDelegate>
 
 @property (nonatomic, strong) PhotoStackView *photoStack;
+@property (weak, nonatomic) IBOutlet UIPageControl *pageControl;
 
 @end
