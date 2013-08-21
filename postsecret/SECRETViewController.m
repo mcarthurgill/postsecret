@@ -68,12 +68,16 @@
 }
 
 -(void)photoStackView:(PhotoStackView *)photoStackView didRevealPhotoAtIndex:(NSUInteger)index {
-    NSString *direction = @"right";
-    if (photoStackView.flickDirection > 0) {
-        NSLog(@"the photo %d was swiped to the %@", index, direction);
+    [self determineFlickDirection:photoStackView.flickDirection];
+}
+
+-(void)determineFlickDirection:(CGFloat)direction {
+    NSString *location = @"right";
+    if (direction > 0) {
+        NSLog(@"the photo was swiped to the %@", location);
     } else {
-        direction = @"left";
-        NSLog(@"the photo %d was swiped to the %@", index, direction);
+        location = @"left";
+        NSLog(@"the photo was swiped to the %@", location);
     }
 }
 
