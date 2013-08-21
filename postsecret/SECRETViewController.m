@@ -62,18 +62,22 @@
 #pragma mark Delegate Protocol Methods
 
 -(void)photoStackView:(PhotoStackView *)photoStackView willStartMovingPhotoAtIndex:(NSUInteger)index {
-    //user started moving a photo
 }
 
 -(void)photoStackView:(PhotoStackView *)photoStackView willFlickAwayPhotoFromIndex:(NSUInteger)fromIndex toIndex:(NSUInteger)index {
 }
 
 -(void)photoStackView:(PhotoStackView *)photoStackView didRevealPhotoAtIndex:(NSUInteger)index {
-    NSLog(@"flickDirection = %f", photoStackView.flickDirection);
+    NSString *direction = @"right";
+    if (photoStackView.flickDirection > 0) {
+        NSLog(@"the photo %d was swiped to the %@", index, direction);
+    } else {
+        direction = @"left";
+        NSLog(@"the photo %d was swiped to the %@", index, direction);
+    }
 }
 
 -(void)photoStackView:(PhotoStackView *)photoStackView didSelectPhotoAtIndex:(NSUInteger)index {
-    NSLog(@"selected photo at index %d", index);
 }
 
 #pragma mark - 
