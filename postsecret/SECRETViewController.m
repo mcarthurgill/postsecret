@@ -11,6 +11,8 @@
 @interface SECRETViewController ()
 @property (nonatomic, strong) NSMutableArray *photos;
 -(void)setup; 
+- (IBAction)likePhoto:(UIButton *)sender;
+- (IBAction)dislikePhoto:(UIButton *)sender;
 @end
 
 @implementation SECRETViewController
@@ -55,7 +57,7 @@
 }
 
 -(UIImage *)photoStackView:(PhotoStackView *)photoStack photoForIndex:(NSUInteger)index {
-    NSLog(@"photostackview photoforindex index: %d", index);
+//    NSLog(@"photostackview photoforindex index: %d", index);
     return [self.photos objectAtIndex:index];
 }
 
@@ -91,21 +93,28 @@
 #pragma mark Swipe Action Methods
 
 -(void)determineFlickDirection:(CGFloat)direction forPhoto:(UIImage *)photo atIndex:(NSUInteger)index{
-    NSLog(@"determineFlickDirection index: %d", index);
+//    NSLog(@"determineFlickDirection index: %d", index);
     NSString *location = @"right";
     if (direction > 0) {
-        NSLog(@"the photo at index %d was swiped to the %@. there are %d total photos", index, location, [self numberOfPhotosInPhotoStackView:self.photoStack]);
+//        NSLog(@"the photo at index %d was swiped to the %@. there are %d total photos", index, location, [self numberOfPhotosInPhotoStackView:self.photoStack]);
     } else {
         location = @"left";
         [self discardPhoto:photo atIndex:index];
-        NSLog(@"the photo at index %d was swiped to the %@. there are %d total photos", index, location, [self numberOfPhotosInPhotoStackView:self.photoStack]);
+//        NSLog(@"the photo at index %d was swiped to the %@. there are %d total photos", index, location, [self numberOfPhotosInPhotoStackView:self.photoStack]);
     }
 }
 
 -(void)discardPhoto:(UIImage *)photo atIndex:(NSUInteger)index {
-    NSLog(@"discardPhoto index: %d", index);
-    [self.photos removeObject:photo];
     [self.photoStack hidePhotoAtIndex:index];
+    [self.photos removeObject:photo];
+}
+
+-(void)likePhoto:(UIButton *)sender {
+    NSLog(@"the button clicked: %@", sender.currentTitle);
+}
+
+- (void)dislikePhoto:(UIButton *)sender {
+    NSLog(@"the button clicked: %@", sender.currentTitle);
 }
 
 @end

@@ -296,11 +296,8 @@ static CGFloat const PhotoRotationOffsetDefault = 4.0f;
 
 -(void)hidePhotoAtIndex:(NSUInteger)index {
     if(index < [self.photoViews count]) {
-        NSLog(@"hidePhoto photoview: %@", [self.photoViews objectAtIndex:index]);
-        NSLog(@"self.photoviews.count: %d", [self.photoViews count]);
         [[self.photoViews objectAtIndex:index] removeFromSuperview];
         [self.photoViews removeObjectAtIndex:index];
-             NSLog(@"self.photoviews.count: %d", [self.photoViews count]);
     }
 }
 
