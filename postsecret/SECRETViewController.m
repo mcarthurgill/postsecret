@@ -66,15 +66,14 @@
 }
 
 -(void)photoStackView:(PhotoStackView *)photoStackView willFlickAwayPhotoFromIndex:(NSUInteger)fromIndex toIndex:(NSUInteger)index {
-    //user flicked away the photo revealing the next one in the stack
 }
 
 -(void)photoStackView:(PhotoStackView *)photoStackView didRevealPhotoAtIndex:(NSUInteger)index {
-//    self.pageControl.currentPage = index; 
+    NSLog(@"flickDirection = %f", photoStackView.flickDirection);
 }
 
 -(void)photoStackView:(PhotoStackView *)photoStackView didSelectPhotoAtIndex:(NSUInteger)index {
-    NSLog(@"selectd photo at index %d", index);
+    NSLog(@"selected photo at index %d", index);
 }
 
 #pragma mark - 

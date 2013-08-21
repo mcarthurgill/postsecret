@@ -140,7 +140,7 @@ static CGFloat const PhotoRotationOffsetDefault = 4.0f;
                      }];
 }
 
--(void)flickAway:(UIView *)photo withVelocity:(CGPoint)velocity {
+-(CGFloat)flickAway:(UIView *)photo withVelocity:(CGPoint)velocity {
     
     if ([self.delegate respondsToSelector:@selector(photoStackView:willFlickAwayPhotoFromIndex:toIndex:)]) {
         NSUInteger fromIndex = [self indexOfTopPhoto];
@@ -170,7 +170,7 @@ static CGFloat const PhotoRotationOffsetDefault = 4.0f;
                              [self.delegate photoStackView:self didRevealPhotoAtIndex:[self indexOfTopPhoto]];
                          }
                      }];
-    
+    return xPos; 
 }
 
 -(void)rotatePhoto:(UIView *)photo degrees:(NSInteger)degrees animated:(BOOL)animated {
@@ -211,7 +211,7 @@ static CGFloat const PhotoRotationOffsetDefault = 4.0f;
 #pragma mark -
 #pragma mark Gesture Handlers
 
--(void)photoPanned:(UIPanGestureRecognizer *)gesture {
+-(CGFloat)photoPanned:(UIPanGestureRecognizer *)gesture {
     
     UIView *topPhoto = [self topPhoto];
     CGPoint velocity = [gesture velocityInView:self];
@@ -239,7 +239,7 @@ static CGFloat const PhotoRotationOffsetDefault = 4.0f;
     } else if(gesture.state == UIGestureRecognizerStateEnded || gesture.state == UIGestureRecognizerStateCancelled) {
         
         if(abs(velocity.x) > 200) {
-            [self flickAway:topPhoto withVelocity:velocity];
+            self.flickDirection = [self flickAway:topPhoto withVelocity:velocity];
             
         } else {
             [self returnToCenter:topPhoto];

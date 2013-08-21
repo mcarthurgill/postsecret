@@ -55,6 +55,8 @@
     // (default is black at 0.15 alpha)
     @property (nonatomic, strong) UIColor *highlightColor;
 
+    @property (nonatomic) CGFloat flickDirection; 
+
     -(NSUInteger)indexOfTopPhoto;
     -(void)goToPhotoAtIndex:(NSUInteger)index;
     -(void)hidePhotoAtIndex:(NSUInteger)index;
