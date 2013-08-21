@@ -9,7 +9,7 @@
 #import "SECRETViewController.h"
 
 @interface SECRETViewController ()
-@property (nonatomic, strong) NSArray *photos;
+@property (nonatomic, strong) NSMutableArray *photos;
 -(void)setup; 
 @end
 
@@ -23,7 +23,7 @@
 
 -(NSArray *)photos {
     if(!_photos){
-        _photos = [[NSArray alloc] initWithObjects:
+        _photos = [[NSMutableArray alloc] initWithObjects:
                    [UIImage imageNamed:@"lovewhoyouare.jpg"],
                    [UIImage imageNamed:@"beautiful.jpg"],
                    [UIImage imageNamed:@"first_love.jpg"],
@@ -55,6 +55,7 @@
 }
 
 -(UIImage *)photoStackView:(PhotoStackView *)photoStack photoForIndex:(NSUInteger)index {
+    NSLog(@"photostackview photoforindex index: %d", index);
     return [self.photos objectAtIndex:index];
 }
 
@@ -68,17 +69,7 @@
 }
 
 -(void)photoStackView:(PhotoStackView *)photoStackView didRevealPhotoAtIndex:(NSUInteger)index {
-    [self determineFlickDirection:photoStackView.flickDirection];
-}
-
--(void)determineFlickDirection:(CGFloat)direction {
-    NSString *location = @"right";
-    if (direction > 0) {
-        NSLog(@"the photo was swiped to the %@", location);
-    } else {
-        location = @"left";
-        NSLog(@"the photo was swiped to the %@", location);
-    }
+    [self determineFlickDirection:photoStackView.flickDirection forPhoto:[self.photos objectAtIndex:index] atIndex:index];
 }
 
 -(void)photoStackView:(PhotoStackView *)photoStackView didSelectPhotoAtIndex:(NSUInteger)index {
@@ -94,6 +85,27 @@
 -(void)viewDidLoad {
     [super viewDidLoad];
     [self setup];
+}
+
+#pragma mark - 
+#pragma mark Swipe Action Methods
+
+-(void)determineFlickDirection:(CGFloat)direction forPhoto:(UIImage *)photo atIndex:(NSUInteger)index{
+    NSLog(@"determineFlickDirection index: %d", index);
+    NSString *location = @"right";
+    if (direction > 0) {
+        NSLog(@"the photo at index %d was swiped to the %@. there are %d total photos", index, location, [self numberOfPhotosInPhotoStackView:self.photoStack]);
+    } else {
+        location = @"left";
+        [self discardPhoto:photo atIndex:index];
+        NSLog(@"the photo at index %d was swiped to the %@. there are %d total photos", index, location, [self numberOfPhotosInPhotoStackView:self.photoStack]);
+    }
+}
+
+-(void)discardPhoto:(UIImage *)photo atIndex:(NSUInteger)index {
+    NSLog(@"discardPhoto index: %d", index);
+    [self.photos removeObject:photo];
+    [self.photoStack hidePhotoAtIndex:index];
 }
 
 @end

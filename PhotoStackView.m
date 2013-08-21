@@ -15,7 +15,7 @@ static CGFloat const PhotoRotationOffsetDefault = 4.0f;
 
 @interface PhotoStackView()
 
-    @property (nonatomic, strong) NSArray *photoViews;
+    @property (nonatomic, strong) NSMutableArray *photoViews;
 
 @end
 
@@ -34,7 +34,7 @@ static CGFloat const PhotoRotationOffsetDefault = 4.0f;
     }
 }
 
--(void)setPhotoViews:(NSArray *)photoViews {
+-(void)setPhotoViews:(NSMutableArray *)photoViews {
     
     // Remove current photo views, ready to be replaced with the fresh batch
     
@@ -211,7 +211,7 @@ static CGFloat const PhotoRotationOffsetDefault = 4.0f;
 #pragma mark -
 #pragma mark Gesture Handlers
 
--(CGFloat)photoPanned:(UIPanGestureRecognizer *)gesture {
+-(void)photoPanned:(UIPanGestureRecognizer *)gesture {
     
     UIView *topPhoto = [self topPhoto];
     CGPoint velocity = [gesture velocityInView:self];
@@ -296,7 +296,11 @@ static CGFloat const PhotoRotationOffsetDefault = 4.0f;
 
 -(void)hidePhotoAtIndex:(NSUInteger)index {
     if(index < [self.photoViews count]) {
+        NSLog(@"hidePhoto photoview: %@", [self.photoViews objectAtIndex:index]);
+        NSLog(@"self.photoviews.count: %d", [self.photoViews count]);
         [[self.photoViews objectAtIndex:index] removeFromSuperview];
+        [self.photoViews removeObjectAtIndex:index];
+             NSLog(@"self.photoviews.count: %d", [self.photoViews count]);
     }
 }
 
